@@ -36,9 +36,9 @@ impl Chip8 {
         }
     }
 
-    //pub fn loadGame() -> {
+    pub fn loadGame(&self, filename: String) {
 
-    //}
+    }
 }
 
 struct Chip8_fontset {
