@@ -8,8 +8,9 @@ fn main() {
 
     // Initialize the Chip8 system and load the game into memory
     let mut chip8 = Chip8::new();
-    //loadGame();
-    
+    chip8.loadGame("PONG".to_string());
+    chip8.printMemoryLoc(512);
+
 
     // Game loop
     loop {

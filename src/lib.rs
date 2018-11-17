@@ -1,3 +1,8 @@
+use std::io::Read;
+use std::error::Error;
+use std::fs::File;
+use std::path::Path;
+
 pub struct Chip8 {
     opcode: u8,                     // opcode
     memory: [u8; 4096],             // memory
@@ -36,8 +41,23 @@ impl Chip8 {
         }
     }
 
-    pub fn loadGame(&self, filename: String) {
+    pub fn loadGame(&mut self, filename: String) {
+        let path = Path::new(&filename);
+        let display = path.display();
+        let mut file = match File::open(&path) {
+            Err(why) => panic!("couldn't open {}: {}", display, why.description()),
+            Ok(file) => file,
+        };
 
+        let mut i = 512;
+        for byte in file.bytes() {
+            self.memory[i] = byte.unwrap();
+            i = i + 1;
+        }
+    }
+
+    pub fn printMemoryLoc(&self, location: usize) {
+        println!("{:x}", self.memory[location]);
     }
 }
 
